@@ -16,6 +16,7 @@
 <script type="text/ecmascript-6">
   import CubePicker from '../picker/picker.vue'
   import apiMixin from '../../common/mixins/api'
+  import pickerMixin from '../../common/mixins/picker'
 
   const COMPONENT_NAME = 'cube-cascade-picker'
   const EVENT_SELECT = 'select'
@@ -29,46 +30,7 @@
 
   export default {
     name: COMPONENT_NAME,
-    mixins: [apiMixin],
-    props: {
-      title: {
-        type: String,
-        default: 'Cascade Picker'
-      },
-      data: {
-        type: Array,
-        default() {
-          return []
-        }
-      },
-      selectedIndex: {
-        type: Array,
-        default() {
-          return []
-        }
-      },
-      cancelTxt: {
-        type: String,
-        default: '取消'
-      },
-      confirmTxt: {
-        type: String,
-        default: '确定'
-      },
-      swipeTime: {
-        type: Number,
-        default: 2500
-      },
-      alias: {
-        type: Object,
-        default() {
-          return {}
-        }
-      },
-      zIndex: {
-        type: Number
-      }
-    },
+    mixins: [apiMixin, pickerMixin],
     data () {
       return {
         cascadeData: this.data.slice(),
@@ -86,14 +48,6 @@
     },
     created() {
       this.updatePickerData()
-    },
-    watch: {
-      data(newVal) {
-        this.setData(newVal, this.selectedIndex)
-      },
-      selectedIndex(newVal) {
-        this.setData(this.data, newVal)
-      }
     },
     methods: {
       show() {
